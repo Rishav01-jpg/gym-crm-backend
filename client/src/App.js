@@ -94,17 +94,8 @@ const App = () => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Router>
                   <Routes>
-                    <Route
-  path="/login"
-  element={
-    localStorage.getItem("token") ? (
-     <Navigate to="/app" replace />
+   <Route path="/login" element={<Login />} />
 
-    ) : (
-      <Login />
-    )
-  }
-/>
 <Route path="/" element={<Landing />} />
 
                   <Route

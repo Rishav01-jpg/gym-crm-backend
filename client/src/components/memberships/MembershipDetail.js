@@ -191,7 +191,7 @@ const MembershipDetail = () => {
         setAlert("Membership updated successfully", "success");
       }
 
-      navigate(`/memberships/${res.data._id}`);
+      navigate(`/app/memberships/${res.data._id}`);
     } catch (err) {
       setAlert(
         err.response?.data?.msg ||

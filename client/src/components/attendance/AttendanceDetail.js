@@ -39,7 +39,8 @@ const AttendanceDetail = () => {
   const { user } = authContext;
 
   const isNew =
-    id === "new" || window.location.pathname.includes("/attendance/new");
+   id === "new" || window.location.pathname.includes("/app/attendance/new");
+
   const isEdit = window.location.pathname.includes("/edit");
 
   // State
@@ -194,7 +195,8 @@ try {
           console.error("Error fetching attendance:", err);
           if (err.response?.status === 404) {
             setAlert("Attendance record not found", "error");
-            navigate("/attendance");
+            navigate("/app/attendance");
+
             return;
           }
         }
@@ -208,7 +210,8 @@ try {
       );
       console.error("Error loading data:", err);
       setLoading(false);
-      navigate("/attendance");
+      navigate("/app/attendance");
+
     }
   };
 
@@ -367,11 +370,11 @@ if (
       if (isNew) {
         await axios.post("/api/attendance", attendanceData);
         setAlert("Member checked in successfully", "success");
-        navigate("/attendance");
+        navigate("/app/attendance");
       } else if (isEdit) {
         await axios.put(`/api/attendance/${id}`, attendanceData);
         setAlert("Attendance record updated successfully", "success");
-        navigate(`/attendance/${id}`);
+        navigate(`/app/attendance/${id}`);
       }
     } catch (err) {
       const errorMsg =
@@ -397,7 +400,7 @@ if (
     try {
       await axios.put(`/api/attendance/checkout/${id}`);
       setAlert("Member checked out successfully", "success");
-      navigate("/attendance");
+      navigate("/app/attendance");
     } catch (err) {
       setAlert(err.response?.data?.msg || "Error checking out member", "error");
       console.error("Error checking out member:", err);
@@ -405,7 +408,7 @@ if (
   };
 
   const handleEdit = () => {
-    navigate(`/attendance/${id}/edit`);
+    navigate(`/app/attendance/${id}/edit`);
   };
 
   const handleDelete = () => {
@@ -416,7 +419,7 @@ if (
     try {
       await axios.delete(`/api/attendance/${id}`);
       setAlert("Attendance record deleted successfully", "success");
-      navigate("/attendance");
+      navigate("/app/attendance");
     } catch (err) {
       setAlert(
         err.response?.data?.msg || "Error deleting attendance record",
@@ -441,7 +444,8 @@ if (
       <Box sx={{ mb: 4 }}>
         <Button
           component={Link}
-          to="/attendance"
+       to="/app/attendance"
+
           startIcon={<ArrowBackIcon />}
           sx={{ mb: 2 }}
         >

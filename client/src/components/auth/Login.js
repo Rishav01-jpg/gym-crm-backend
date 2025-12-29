@@ -9,33 +9,38 @@ const Login = () => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
-  const { login, error, clearErrors, isAuthenticated } = authContext;
+const { login, error, clearErrors, isAuthenticated, user } = authContext;
+
+
   const { setAlert, alerts } = alertContext;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/app");
+  if (isAuthenticated && user) {
+  navigate("/app");
+}
 
-    }
 
     if (error) {
       setAlert(error, "error");
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated]);
+  }, [error, isAuthenticated, user]);
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+const [loginForm, setLoginForm] = useState({
+  email: "",
+  password: "",
+});
 
-  const { email, password } = user;
+
+  const { email, password } = loginForm;
+
 
   const onChange = (e) =>
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+
 
   const onSubmit = (e) => {
     e.preventDefault();

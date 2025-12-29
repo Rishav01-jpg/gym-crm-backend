@@ -309,7 +309,8 @@ const MemberDetail = () => {
         setAlert("Member updated successfully", "success");
       }
 
-      navigate(`/members/${res.data._id}`);
+      navigate(`/app/members/${res.data._id}`);
+
     } catch (err) {
       setAlert(
         err.response?.data?.msg ||
@@ -324,7 +325,8 @@ const MemberDetail = () => {
     try {
       await axios.delete(`/api/members/${id}`);
       setAlert("Member deleted successfully", "success");
-      navigate("/members");
+      navigate("/app/members");
+
     } catch (err) {
       setAlert(err.response?.data?.msg || "Error deleting member", "error");
     }
@@ -355,7 +357,8 @@ const MemberDetail = () => {
           <Grid item>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={() => navigate("/members")}
+             onClick={() => navigate("/app/members")}
+
             >
               Back to Members
             </Button>

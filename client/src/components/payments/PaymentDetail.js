@@ -161,7 +161,8 @@ const PaymentDetail = () => {
           // If payment not found, redirect to payments list
           if (err.response?.status === 404) {
             setAlert("Payment not found", "error");
-            navigate("/payments");
+           navigate("/app/payments");
+
             return;
           }
         }
@@ -174,7 +175,7 @@ const PaymentDetail = () => {
     } catch (err) {
       console.error("Error loading data:", err);
       setAlert(err.response?.data?.msg || "Error loading data", "error");
-      navigate("/payments");
+      navigate("/app/payments");
     }
   };
 
@@ -291,7 +292,8 @@ const PaymentDetail = () => {
         setAlert("Payment updated successfully", "success");
       }
 
-      navigate(`/payments/${res.data._id}`);
+     navigate(`/app/payments/${res.data._id}`);
+
     } catch (err) {
       setAlert(err.response?.data?.msg || "Error saving payment", "error");
 
@@ -318,7 +320,8 @@ const PaymentDetail = () => {
     try {
       await axios.delete(`/api/payments/${id}`);
       setAlert("Payment deleted successfully", "success");
-      navigate("/payments");
+     navigate("/app/payments");
+
     } catch (err) {
       setAlert(err.response?.data?.msg || "Error deleting payment", "error");
     }
@@ -361,7 +364,8 @@ const PaymentDetail = () => {
         </Typography>
         <Button
           component={Link}
-          to="/payments"
+        to="/app/payments"
+
           startIcon={<ArrowBackIcon />}
           variant="outlined"
         >
@@ -687,7 +691,8 @@ const PaymentDetail = () => {
             <Button
               type="button"
               variant="outlined"
-              onClick={() => navigate("/payments")}
+              onClick={() => navigate("/app/payments")}
+
             >
               Cancel
             </Button>
@@ -707,7 +712,8 @@ const PaymentDetail = () => {
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
           <Button
             component={Link}
-            to={`/payments/${id}/edit`}
+           to={`/app/payments/${id}/edit`}
+
             variant="contained"
             color="primary"
           >

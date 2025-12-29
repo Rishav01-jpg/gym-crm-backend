@@ -135,10 +135,18 @@ const Attendance = () => {
     setPage(0);
   };
 
-  const handleDateFilterChange = (e) => {
-    setDateFilter(e.target.value);
+ const handleDateFilterChange = (e) => {
+  const value = e.target.value;
+
+  // update text only — DO NOT reload list yet
+  setDateFilter(value);
+
+  // only refresh after full date is entered
+  if (value && value.length === 10) {
     setPage(0);
-  };
+  }
+};
+
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -266,7 +274,8 @@ const Attendance = () => {
               color="primary"
               startIcon={<AddIcon />}
               component={Link}
-              to="/attendance/new"
+             to="/app/attendance/new"
+
             >
               Check In Member
             </Button>
@@ -292,14 +301,15 @@ const Attendance = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Date (YYYY-MM-DD)"
-                type="text"
-                value={dateFilter}
-                onChange={handleDateFilterChange}
-                placeholder="YYYY-MM-DD"
-              />
+           <TextField
+  fullWidth
+  label="Filter by Date"
+  type="date"
+  value={dateFilter}
+  onChange={handleDateFilterChange}
+  InputLabelProps={{ shrink: true }}
+/>
+
             </Grid>
             <Grid item xs={12} md={4}>
               <TextField
@@ -382,7 +392,8 @@ const Attendance = () => {
                       <IconButton
                         color="primary"
                         component={Link}
-                        to={`/attendance/${record._id}`}
+                      to={`/app/attendance/${record._id}`}
+
                         size="small"
                       >
                         <EditIcon fontSize="small" />

@@ -11,14 +11,15 @@ import {
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case USER_LOADED:
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload,
-        gym: action.payload.gym || null,
-      };
+  case USER_LOADED:
+  return {
+    ...state,
+    isAuthenticated: !!action.payload,
+    loading: false,
+    user: action.payload || null,
+    gym: action.payload?.gym || null,
+  };
+
   case REGISTER_SUCCESS:
 case LOGIN_SUCCESS:
   localStorage.setItem("token", action.payload.token);

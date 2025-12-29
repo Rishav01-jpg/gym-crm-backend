@@ -69,7 +69,7 @@ const ExpenseDetail = () => {
   useEffect(() => {
     if (!isManager) {
       setAlert("Not authorized to manage expenses", "error");
-      navigate("/expenses");
+      navigate("/app/expenses");
       return;
     }
 
@@ -124,7 +124,7 @@ const ExpenseDetail = () => {
         "error"
       );
       setLoading(false);
-      navigate("/expenses");
+      navigate("/app/expenses");
     }
   };
 
@@ -222,7 +222,7 @@ const ExpenseDetail = () => {
         setAlert("Expense created successfully", "success");
       }
 
-      navigate("/expenses");
+      navigate("/app/expenses");
     } catch (err) {
       const errorMsg =
         err.response?.data?.msg ||
@@ -503,7 +503,7 @@ const ExpenseDetail = () => {
           <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
             <Button
               variant="outlined"
-              onClick={() => navigate("/expenses")}
+              onClick={() => navigate("/app/expenses")}
               sx={{ mr: 2 }}
             >
               Cancel

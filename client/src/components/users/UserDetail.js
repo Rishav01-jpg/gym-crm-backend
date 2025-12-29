@@ -76,12 +76,12 @@ const UserDetail = () => {
     } catch (err) {
       setAlert(err.response?.data?.msg || 'Error fetching user data', 'error');
       setLoading(false);
-      navigate('/users');
+      navigate('/app/users');
     }
   };
 
   const handleEdit = () => {
-    navigate(`/users/edit/${id}`);
+    navigate(`/app/users/edit/${id}`);
   };
 
   const openDeleteDialog = () => {
@@ -104,7 +104,7 @@ const UserDetail = () => {
     try {
       await axios.delete(`/api/users/${id}`);
       setAlert('User deleted successfully', 'success');
-      navigate('/users');
+      navigate('/app/users');
     } catch (err) {
       setAlert(err.response?.data?.msg || 'Error deleting user', 'error');
       closeDeleteDialog();
@@ -127,7 +127,7 @@ const UserDetail = () => {
   };
 
   const handleBack = () => {
-    navigate('/users');
+    navigate('/app/users');
   };
 
   // Get role color
@@ -300,7 +300,7 @@ const UserDetail = () => {
                   variant="outlined" 
                   size="small" 
                   sx={{ ml: 'auto' }}
-                  onClick={() => navigate(`/staff/${userData.staff._id}`)}
+                  onClick={() => navigate(`/app/staff/${userData.staff._id}`)}
                 >
                   View Staff Profile
                 </Button>

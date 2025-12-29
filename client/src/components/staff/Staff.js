@@ -214,7 +214,7 @@ const Staff = () => {
             <Grid item>
               <Button
                 onClick={() => {
-                  navigate("/staff/new");
+                  navigate("/app/staff/new");
                 }}
                 variant="contained"
                 color="primary"
@@ -321,7 +321,7 @@ const Staff = () => {
                           </Avatar>
                           <Link
                             component={RouterLink}
-                            to={`/staff/${staffMember._id}`}
+                            to={`/app/staff/${staffMember._id}`}
                             underline="hover"
                           >
                             {staffMember.firstName} {staffMember.lastName}
@@ -350,7 +350,7 @@ const Staff = () => {
                       <TableCell align="right">
                         <IconButton
                           component={RouterLink}
-                          to={`/staff/${staffMember._id}`}
+                          to={`/app/staff/${staffMember._id}`}
                           color="primary"
                           size="small"
                         >

@@ -116,15 +116,15 @@ const Expenses = () => {
   };
 
   const handleAddExpense = () => {
-    navigate("/expenses/new");
+    navigate("/app/expenses/new");
   };
 
   const handleEditExpense = (expenseId) => {
-    navigate(`/expenses/${expenseId}/edit`);
+    navigate(`/app/expenses/${expenseId}/edit`);
   };
 
   const handleViewExpense = (expenseId) => {
-    navigate(`/expenses/${expenseId}`);
+    navigate(`/app/expenses/${expenseId}`);
   };
 
   const openDeleteDialog = (expense) => {

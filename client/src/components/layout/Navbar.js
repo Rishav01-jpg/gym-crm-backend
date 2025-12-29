@@ -45,13 +45,13 @@ const Navbar = ({ open, handleDrawer, drawerWidth }) => {
   };
 
   const handleProfile = () => {
-    navigate("/profile");
+    navigate("/app/profile");
     handleClose();
   };
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/app/login");
     handleClose();
   };
 

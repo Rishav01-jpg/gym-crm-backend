@@ -93,15 +93,15 @@ const Users = () => {
   };
 
   const handleAddUser = () => {
-    navigate('/users/add');
+    navigate('/app/users/add');
   };
 
   const handleEditUser = (userId) => {
-    navigate(`/users/edit/${userId}`);
+    navigate(`/app/users/edit/${userId}`);
   };
 
   const handleViewUser = (userId) => {
-    navigate(`/users/${userId}`);
+    navigate(`/app/users/${userId}`);
   };
 
   const openDeleteDialog = (user) => {

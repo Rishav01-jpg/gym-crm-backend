@@ -167,7 +167,8 @@ const Memberships = () => {
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon />}
-                onClick={() => navigate("/memberships/new")}
+                onClick={() => navigate("/app/memberships/new")}
+
               >
                 Add Membership
               </Button>
@@ -245,7 +246,8 @@ const Memberships = () => {
                   <TableRow
                     key={membership._id}
                     hover
-                    onClick={() => navigate(`/memberships/${membership._id}`)}
+                   onClick={() => navigate(`/app/memberships/${membership._id}`)}
+
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell>{membership.name}</TableCell>
@@ -267,7 +269,8 @@ const Memberships = () => {
                         color="primary"
                         onClick={(e) => {
                           e.stopPropagation();
-                          navigate(`/memberships/${membership._id}`);
+                          navigate(`/app/memberships/${membership._id}`);
+
                         }}
                       >
                         <EditIcon />

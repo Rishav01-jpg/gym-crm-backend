@@ -10,34 +10,62 @@ const ClassSession = require('../models/ClassSession');
 // @route   GET api/attendance
 // @desc    Get all attendance records
 // @access  Private
-router.get('/', auth, tenant, async (req, res) => {
+router.get("/", auth, tenant, async (req, res) => {
   try {
-    let query;
-    if (req.user && req.user.role === 'superadmin') {
-      // Superadmin can see all attendance records across all gyms
-      query = {};
-    } else {
-      // Filter by gym ID for non-superadmin users
-      query = { gym: req.gymId };
+    let query = {};
+
+    // Gym filter for non-superadmin
+    if (req.user.role !== "superadmin") {
+      query.gym = req.gymId;
     }
-    
+
+    // ==========================
+    // STATUS FILTER
+    // ==========================
+    if (req.query.status === "checkedIn") {
+      query.checkOutTime = null;
+    }
+
+    if (req.query.status === "checkedOut") {
+      query.checkOutTime = { $ne: null };
+    }
+
+    // ==========================
+    // DATE FILTER (YYYY-MM-DD)
+    // ==========================
+    if (req.query.date) {
+      const day = new Date(req.query.date);
+      const nextDay = new Date(day);
+      nextDay.setDate(day.getDate() + 1);
+
+      query.checkInTime = {
+        $gte: day,
+        $lt: nextDay,
+      };
+    }
+
+    // ==========================
+    // FETCH RECORDS
+    // ==========================
     const attendance = await Attendance.find(query)
-      .populate('member', 'firstName lastName')
+      .populate("member", "firstName lastName")
       .populate({
-        path: 'classSession',
+        path: "classSession",
         populate: {
-          path: 'class',
-          model: 'Class',
-          select: 'name'
-        }
+          path: "class",
+          model: "Class",
+          select: "name",
+        },
       })
       .sort({ checkInTime: -1 });
+
     res.json(attendance);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
+
 
 // @route   GET api/attendance/:id
 // @desc    Get attendance by ID

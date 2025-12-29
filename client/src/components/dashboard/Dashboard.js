@@ -297,7 +297,7 @@ const Dashboard = () => {
     title="Training Classes"
     value={data.stats.activeTrainingClasses}
     color="#00bcd4"
-    onClick={() => navigate("/training-classes")}
+    onClick={() => navigate("/app/training-classes")}
   />
 </Grid>
 
@@ -335,7 +335,7 @@ const Dashboard = () => {
                 title="Monthly Expenses"
                 value={formatCurrency(data.stats.monthlyExpenses)}
                 color="#f44336"
-                onClick={() => navigate("/expenses")}
+                onClick={() => navigate("/app/expenses")}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
@@ -348,7 +348,7 @@ const Dashboard = () => {
                 title="Fees Due"
                 value={data.stats.feesDueCount}
                 color="#ff9800"
-                onClick={() => navigate("/members?filter=fees-due")}
+                onClick={() => navigate("/app/members?filter=fees-due")}
               />
             </Grid>
           </>
@@ -365,7 +365,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               fullWidth
-              onClick={() => navigate("/members/new")}
+              onClick={() => navigate("/app/members/new")}
               sx={{ height: "100%" }}
             >
               Add Member
@@ -375,7 +375,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               fullWidth
-              onClick={() => navigate("/attendance/new")}
+              onClick={() => navigate("/app/attendance/new")}
               sx={{ height: "100%" }}
             >
               Check-In
@@ -385,7 +385,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               fullWidth
-              onClick={() => navigate("/payments/new")}
+              onClick={() => navigate("/app/payments/new")}
               sx={{ height: "100%" }}
             >
               Record Payment
@@ -395,7 +395,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               fullWidth
-              onClick={() => navigate("/classes/sessions/new")}
+              onClick={() => navigate("/app/classes/sessions/new")}
               sx={{ height: "100%" }}
             >
               Schedule Class
@@ -405,7 +405,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               fullWidth
-              onClick={() => navigate("/members")}
+              onClick={() => navigate("/app/members")}
               sx={{ height: "100%" }}
             >
               View Members
@@ -415,7 +415,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               fullWidth
-              onClick={() => navigate("/classes")}
+              onClick={() => navigate("/app/classes")}
               sx={{ height: "100%" }}
             >
               View Classes
@@ -464,7 +464,7 @@ const Dashboard = () => {
               )}
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => navigate("/members")}>
+              <Button size="small" onClick={() => navigate("/app/members")}>
                 View All Members
               </Button>
             </CardActions>
@@ -517,7 +517,7 @@ const Dashboard = () => {
             <CardActions>
               <Button
                 size="small"
-                onClick={() => navigate("/classes/sessions")}
+                onClick={() => navigate("/app/classes/sessions")}
               >
                 View All Classes
               </Button>

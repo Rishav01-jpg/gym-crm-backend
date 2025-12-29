@@ -122,7 +122,7 @@ const UserForm = () => {
     } catch (err) {
       setAlert(err.response?.data?.msg || 'Error fetching user data', 'error');
       setLoading(false);
-      navigate('/users');
+      navigate('/app/users');
     }
   };
 
@@ -208,7 +208,7 @@ const UserForm = () => {
         setAlert('User created successfully', 'success');
       }
       
-      navigate('/users');
+      navigate('/app/users');
     } catch (err) {
       const errorMsg = err.response?.data?.msg || 
                       (err.response?.data?.errors ? err.response.data.errors[0].msg : 'Error saving user');

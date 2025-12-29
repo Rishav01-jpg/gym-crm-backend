@@ -175,7 +175,7 @@ const StaffDetail = () => {
     } catch (err) {
       if (err.response?.status === 404) {
         setAlert("Staff member not found", "error");
-        navigate("/staff");
+        navigate("/app/staff");
       } else {
         setAlert(
           err.response?.data?.msg || "Error loading staff data",
@@ -272,7 +272,7 @@ const StaffDetail = () => {
         setAlert("Staff member updated successfully", "success");
       }
 
-      navigate("/staff");
+      navigate("/app/staff");
     } catch (err) {
       setAlert(
         err.response?.data?.msg ||
@@ -300,7 +300,7 @@ const StaffDetail = () => {
     try {
       await axios.delete(`/api/staff/${id}`);
       setAlert("Staff member deleted successfully", "success");
-      navigate("/staff");
+      navigate("/app/staff");
     } catch (err) {
       setAlert(
         err.response?.data?.msg || "Error deleting staff member",
@@ -352,7 +352,7 @@ const StaffDetail = () => {
           </Typography>
           <Button
             component={Link}
-            to="/staff"
+            to="/app/staff"
             variant="contained"
             color="primary"
             startIcon={<ArrowBackIcon />}
@@ -379,7 +379,7 @@ const StaffDetail = () => {
             </Typography>
             <Button
               component={RouterLink}
-              to="/staff"
+              to="/app/staff"
               startIcon={<ArrowBackIcon />}
               sx={{ mt: 2 }}
             >
@@ -415,7 +415,7 @@ const StaffDetail = () => {
               {isReadOnly && canModify && (
                 <Button
                   component={RouterLink}
-                  to={`/staff/${id}/edit`}
+                  to={`/app/staff/${id}/edit`}
                   variant="contained"
                   color="primary"
                   startIcon={<EditIcon />}
@@ -649,7 +649,7 @@ const StaffDetail = () => {
                     >
                       <Button
                         component={RouterLink}
-                        to={isNew ? "/staff" : `/staff/${id}`}
+                        to={isNew ? "/app/staff" : `/app/staff/${id}`}
                         variant="outlined"
                         disabled={submitting}
                       >

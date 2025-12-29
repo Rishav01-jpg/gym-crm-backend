@@ -269,7 +269,8 @@ const Payments = () => {
             <Grid item>
               <Button
                 component={Link}
-                to="/payments/new"
+               to="/app/payments/new"
+
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon />}
@@ -408,7 +409,7 @@ const Payments = () => {
                       <TableCell>
                         <IconButton
                           component={Link}
-                          to={`/payments/${payment._id}`}
+                         to={`/app/payments/${payment._id}`}
                           size="small"
                           color="primary"
                           title="View"

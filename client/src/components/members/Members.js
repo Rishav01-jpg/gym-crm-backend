@@ -238,7 +238,8 @@ const Members = () => {
                 color="primary"
                 startIcon={<AddIcon />}
                 component={RouterLink}
-                to="/members/new"
+               to="/app/members/new"
+
               >
                 Add Member
               </Button>
@@ -344,7 +345,8 @@ const Members = () => {
                         <Box sx={{ display: "flex", alignItems: "center" }}>
                           <Link
                             component={RouterLink}
-                            to={`/members/${member._id}`}
+                           to={`/app/members/${member._id}`}
+
                             underline="hover"
                           >
                             {member.firstName} {member.lastName}
@@ -391,7 +393,8 @@ const Members = () => {
                       <TableCell align="right">
                         <IconButton
                           component={RouterLink}
-                          to={`/members/${member._id}`}
+                         to={`/app/members/${member._id}`}
+
                           color="primary"
                           size="small"
                         >
