@@ -33,7 +33,8 @@ import {
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 import axios from 'axios';
-import { API_BASE } from '../../config';
+import API_BASE from "../../config/api";
+
 
 const Users = () => {
   const authContext = useContext(AuthContext);
