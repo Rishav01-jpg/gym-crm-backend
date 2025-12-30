@@ -41,6 +41,7 @@ import {
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import { formatDate } from "../../utils/format";
+import API_BASE from "../../config/api";
 
 const Members = () => {
   const alertContext = useContext(AlertContext);
@@ -79,7 +80,8 @@ const Members = () => {
   const getMembers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/members");
+    const res = await axios.get(`${API_BASE}/api/members`);
+
       setMembers(res.data);
       setLoading(false);
     } catch (err) {
@@ -97,7 +99,10 @@ const Members = () => {
 
     try {
       setLoading(true);
-      const res = await axios.get(`/api/members/search/${searchTerm}`);
+     const res = await axios.get(
+  `${API_BASE}/api/members/search/${searchTerm}`
+);
+
       setMembers(res.data);
       setLoading(false);
     } catch (err) {
@@ -122,7 +127,10 @@ const Members = () => {
 
     try {
       setLoading(true);
-      const res = await axios.get(`/api/members/status/${status}`);
+     const res = await axios.get(
+  `${API_BASE}/api/members/status/${status}`
+);
+
       setMembers(res.data);
       setLoading(false);
     } catch (err) {
@@ -156,7 +164,8 @@ const Members = () => {
 
     try {
       setLoading(true);
-      const res = await axios.get("/api/members/fees-due");
+      const res = await axios.get(`${API_BASE}/api/members/fees-due`);
+
       setMembers(res.data);
       setLoading(false);
     } catch (err) {
@@ -173,7 +182,10 @@ const Members = () => {
     if (!memberToDelete) return;
 
     try {
-      await axios.delete(`/api/members/${memberToDelete._id}`);
+      await axios.delete(
+  `${API_BASE}/api/members/${memberToDelete._id}`
+);
+
       setMembers(members.filter((member) => member._id !== memberToDelete._id));
       setAlert("Member deleted successfully", "success");
       setDeleteDialogOpen(false);
