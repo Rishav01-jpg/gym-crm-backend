@@ -22,9 +22,24 @@ app.use(express.json({ extended: false }));
 app.use(
   cors({
     origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
     exposedHeaders: ["x-auth-token"],
   })
 );
+app.options("*", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, x-auth-token"
+  );
+  res.sendStatus(200);
+});
+
 
 
 if (process.env.NODE_ENV !== "production") {
