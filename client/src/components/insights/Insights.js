@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE from "../../config/api";
+
 import {
   Container,
   Grid,
@@ -87,13 +89,26 @@ const Insights = () => {
       const token = localStorage.getItem("token");
       const headers = { "x-auth-token": token };
 
-      const paymentsRes = await axios.get("/api/payments", { headers });
-      const membersRes = await axios.get("/api/members", { headers });
-      const trainingRes = await axios.get("/api/training-classes", { headers });
-      const checkinsRes = await axios.get(
-        "/api/members?limit=50&sort=firstName",
-        { headers }
-      );
+      const paymentsRes = await axios.get(
+  `${API_BASE}/api/payments`,
+  { headers }
+);
+
+const membersRes = await axios.get(
+  `${API_BASE}/api/members`,
+  { headers }
+);
+
+const trainingRes = await axios.get(
+  `${API_BASE}/api/training-classes`,
+  { headers }
+);
+
+const checkinsRes = await axios.get(
+  `${API_BASE}/api/members?limit=50&sort=firstName`,
+  { headers }
+);
+
 
       const qs =
         startDate && endDate
