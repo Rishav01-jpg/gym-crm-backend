@@ -40,6 +40,7 @@ import {
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import { formatCurrency } from "../../utils/format";
+import API_BASE from "../../config/api";
 
 const Memberships = () => {
   const alertContext = useContext(AlertContext);
@@ -65,7 +66,8 @@ const Memberships = () => {
   const getMemberships = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/memberships");
+     const res = await axios.get(`${API_BASE}/api/memberships`);
+
       setMemberships(res.data);
       setLoading(false);
     } catch (err) {
@@ -135,7 +137,10 @@ const Memberships = () => {
   // Delete membership
   const deleteMembership = async () => {
     try {
-      await axios.delete(`/api/memberships/${membershipToDelete._id}`);
+      await axios.delete(
+  `${API_BASE}/api/memberships/${membershipToDelete._id}`
+);
+
       setAlert("Membership deleted successfully", "success");
       getMemberships();
       closeDeleteDialog();

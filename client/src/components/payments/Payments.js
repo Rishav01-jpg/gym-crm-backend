@@ -41,6 +41,7 @@ import {
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import { formatCurrency, formatDate } from "../../utils/format";
+import API_BASE from "../../config/api";
 
 const Payments = () => {
   const alertContext = useContext(AlertContext);
@@ -84,7 +85,8 @@ const Payments = () => {
   const getPayments = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/payments");
+      const res = await axios.get(`${API_BASE}/api/payments`);
+
       setPayments(res.data);
       setFilteredPayments(res.data);
       setLoading(false);
@@ -99,8 +101,8 @@ const Payments = () => {
       setLoading(true);
       const formattedStart = start.toISOString().split("T")[0];
       const formattedEnd = end.toISOString().split("T")[0];
-      const res = await axios.get(
-  `/api/payments/date-range?startDate=${formattedStart}&endDate=${formattedEnd}`
+     const res = await axios.get(
+  `${API_BASE}/api/payments/date-range?startDate=${formattedStart}&endDate=${formattedEnd}`
 );
 
       setPayments(res.data);
@@ -211,7 +213,10 @@ const Payments = () => {
 
   const deletePayment = async () => {
     try {
-      await axios.delete(`/api/payments/${paymentToDelete._id}`);
+     await axios.delete(
+  `${API_BASE}/api/payments/${paymentToDelete._id}`
+);
+
       setPayments(
         payments.filter((payment) => payment._id !== paymentToDelete._id)
       );

@@ -42,6 +42,7 @@ import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import API_BASE from "../../config/api";
 
 const Staff = () => {
   const navigate = useNavigate();
@@ -81,7 +82,8 @@ const Staff = () => {
   const loadStaff = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/staff");
+      const res = await axios.get(`${API_BASE}/api/staff`);
+
       setStaff(res.data);
       setLoading(false);
     } catch (err) {
@@ -99,7 +101,8 @@ const Staff = () => {
 
     try {
       setLoading(true);
-      const res = await axios.get(`/api/staff/search/${searchTerm}`);
+      const res = await axios.get(`${API_BASE}/api/staff/search/${searchTerm}`);
+
       setStaff(res.data);
       setLoading(false);
     } catch (err) {
@@ -119,7 +122,8 @@ const Staff = () => {
 
     try {
       setLoading(true);
-      const res = await axios.get(`/api/staff/position/${position}`);
+      const res = await axios.get(`${API_BASE}/api/staff/position/${position}`);
+
       setStaff(res.data);
       setLoading(false);
     } catch (err) {
@@ -146,7 +150,8 @@ const Staff = () => {
 
     try {
       setDeleteLoading(true);
-      await axios.delete(`/api/staff/${staffToDelete._id}`);
+      await axios.delete(`${API_BASE}/api/staff/${staffToDelete._id}`);
+
       setAlert("Staff member deleted successfully", "success");
       loadStaff();
       closeDeleteDialog();

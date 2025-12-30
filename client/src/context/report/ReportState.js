@@ -12,6 +12,7 @@ import {
   CLEAR_REPORT_ERROR,
   CLEAR_CURRENT_REPORT
 } from '../types';
+import API_BASE from "../../config/api";
 
 const ReportState = props => {
   const initialState = {
@@ -39,7 +40,8 @@ const ReportState = props => {
     try {
       setLoading();
       
-      let url = `/api/reports/revenue?period=${period}`;
+      let url = `${API_BASE}/api/reports/revenue?period=${period}`;
+
       if (startDate) url += `&startDate=${startDate}`;
       if (endDate) url += `&endDate=${endDate}`;
       
@@ -63,7 +65,8 @@ const ReportState = props => {
     try {
       setLoading();
       
-      const res = await axios.get('/api/reports/membership');
+      const res = await axios.get(`${API_BASE}/api/reports/membership`);
+
       
       dispatch({
         type: GET_MEMBERSHIP_REPORT,
@@ -83,7 +86,8 @@ const ReportState = props => {
     try {
       setLoading();
       
-      let url = `/api/reports/attendance?period=${period}`;
+      let url = `${API_BASE}/api/reports/attendance?period=${period}`;
+
       if (startDate) url += `&startDate=${startDate}`;
       if (endDate) url += `&endDate=${endDate}`;
       
@@ -107,7 +111,8 @@ const ReportState = props => {
     try {
       setLoading();
       
-      let url = '/api/reports/classes';
+      let url = `${API_BASE}/api/reports/classes`;
+
       if (startDate) url += `?startDate=${startDate}`;
       if (endDate) url += `${startDate ? '&' : '?'}endDate=${endDate}`;
       

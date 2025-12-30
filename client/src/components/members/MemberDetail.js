@@ -34,6 +34,7 @@ import {
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import { formatDate } from "../../utils/format";
+import API_BASE from "../../config/api";
 
 // TabPanel component for tab content
 function TabPanel(props) {
@@ -115,7 +116,8 @@ const MemberDetail = () => {
   // Get member details
   const getMember = async () => {
     try {
-      const res = await axios.get(`/api/members/${id}`);
+      const res = await axios.get(`${API_BASE}/api/members/${id}`);
+
 
       // Format dates for form fields
       const formattedMember = {
@@ -147,7 +149,8 @@ const MemberDetail = () => {
   // Get all memberships
   const getMemberships = async () => {
     try {
-      const res = await axios.get("/api/memberships");
+     const res = await axios.get(`${API_BASE}/api/memberships`);
+
       setMemberships(res.data);
     } catch (err) {
       setAlert(
@@ -232,7 +235,8 @@ const MemberDetail = () => {
       let res;
 
       if (isNew) {
-        res = await axios.post("/api/members", memberData);
+        res = await axios.post(`${API_BASE}/api/members`, memberData);
+
         setAlert("Member created successfully", "success");
 
         // If a custom fee is provided, create a custom membership plan for this member
@@ -241,9 +245,10 @@ const MemberDetail = () => {
             // Get the original membership to copy its details
             let originalMembership = null;
             if (memberData.membershipType) {
-              const membershipRes = await axios.get(
-                `/api/memberships/${memberData.membershipType}`
-              );
+             const membershipRes = await axios.get(
+  `${API_BASE}/api/memberships/${memberData.membershipType}`
+);
+
               originalMembership = membershipRes.data;
             }
 
@@ -272,10 +277,11 @@ const MemberDetail = () => {
               isActive: true,
             };
 
-            const membershipRes = await axios.post(
-              "/api/memberships",
-              customMembershipData
-            );
+           const membershipRes = await axios.post(
+  `${API_BASE}/api/memberships`,
+  customMembershipData
+);
+
 
             // Update the member with the new custom membership
             // Include startDate to trigger end date calculation on the server
@@ -285,16 +291,18 @@ const MemberDetail = () => {
 
             // Update the member with both the new membership type and the start date
             // This ensures the server has all the information needed to calculate the end date
-            await axios.put(`/api/members/${res.data._id}`, {
+            await axios.put(`${API_BASE}/api/members/${res.data._id}`, {
+
               membershipType: membershipRes.data._id,
               startDate: startDateToUse,
               membershipStatus: "active", // Ensure the membership is active
             });
 
             // Fetch the updated member to see if the end date was calculated
-            const updatedMember = await axios.get(
-              `/api/members/${res.data._id}`
-            );
+           const updatedMember = await axios.get(
+  `${API_BASE}/api/members/${res.data._id}`
+);
+
 
             setAlert("Member created with custom membership plan", "success");
           } catch (membershipErr) {
@@ -305,7 +313,8 @@ const MemberDetail = () => {
           }
         }
       } else {
-        res = await axios.put(`/api/members/${id}`, memberData);
+        res = await axios.put(`${API_BASE}/api/members/${id}`, memberData);
+
         setAlert("Member updated successfully", "success");
       }
 
@@ -323,7 +332,8 @@ const MemberDetail = () => {
   // Handle delete member
   const handleDeleteMember = async () => {
     try {
-      await axios.delete(`/api/members/${id}`);
+     await axios.delete(`${API_BASE}/api/members/${id}`);
+
       setAlert("Member deleted successfully", "success");
       navigate("/app/members");
 

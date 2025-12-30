@@ -29,6 +29,7 @@ import AlertContext from "../../context/alert/alertContext";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import DeleteConfirmDialog from "../common/DeleteConfirmDialog";
 import { format } from "date-fns";
+import API_BASE from "../../config/api";
 
 const AttendanceDetail = () => {
   const { id } = useParams();
@@ -75,10 +76,12 @@ const AttendanceDetail = () => {
       // If no search term and no selected member, just load a limited set
       setMemberSearchLoading(true);
       try {
-        const response = await axios.get(
-          "/api/members?limit=50&sort=firstName"
-        );
-        setMembers(response.data);
+       const response = await axios.get(
+  `${API_BASE}/api/members?limit=50&sort=firstName`
+);
+
+setMembers(response.data);
+
       } catch (err) {
         console.error("Error fetching members:", err);
       } finally {
@@ -90,9 +93,10 @@ const AttendanceDetail = () => {
     setMemberSearchLoading(true);
     try {
       // Search by name, email, or phone
-      const response = await axios.get(
-        `/api/members/search?term=${encodeURIComponent(searchTerm)}`
-      );
+ const response = await axios.get(
+  `${API_BASE}/api/members/search?term=${encodeURIComponent(searchTerm)}`
+);
+
       setMembers(response.data);
     } catch (err) {
       console.error("Error searching members:", err);
@@ -132,8 +136,9 @@ const AttendanceDetail = () => {
       // Load members data
       try {
         const membersRes = await axios.get(
-          "/api/members?limit=50&sort=firstName"
-        );
+  `${API_BASE}/api/members?limit=50&sort=firstName`
+);
+
         setMembers(membersRes.data);
       } catch (err) {
         console.error("Error loading members:", err);
@@ -143,8 +148,9 @@ const AttendanceDetail = () => {
       // Try to load class sessions if the API exists
       try {
         const classSessionsRes = await axios.get(
-          "/api/classes/sessions/active"
-        );
+  `${API_BASE}/api/classes/sessions/active`
+);
+
         setClassSessions(classSessionsRes.data);
       } catch (err) {
         console.log("Classes module not implemented yet:", err.message);
@@ -152,7 +158,8 @@ const AttendanceDetail = () => {
       }
 // Load training classes
 try {
- const tcRes = await axios.get("/api/training-classes");
+ const tcRes = await axios.get(`${API_BASE}/api/training-classes`)
+;
 
   setTrainingClasses(tcRes.data);
 } catch (err) {
@@ -163,7 +170,8 @@ try {
       // If editing or viewing an existing attendance record, fetch its data
       if (!isNew && id) {
         try {
-          const attendanceRes = await axios.get(`/api/attendance/${id}`);
+          const attendanceRes = await axios.get(`${API_BASE}/api/attendance/${id}`)
+;
           const attendanceData = attendanceRes.data;
 
           // Format dates properly
@@ -368,11 +376,13 @@ if (
 }
 
       if (isNew) {
-        await axios.post("/api/attendance", attendanceData);
+        await axios.post(`${API_BASE}/api/attendance`, attendanceData)
+;
         setAlert("Member checked in successfully", "success");
         navigate("/app/attendance");
       } else if (isEdit) {
-        await axios.put(`/api/attendance/${id}`, attendanceData);
+        await axios.put(`${API_BASE}/api/attendance/${id}`, attendanceData)
+;
         setAlert("Attendance record updated successfully", "success");
         navigate(`/app/attendance/${id}`);
       }
@@ -398,7 +408,8 @@ if (
 
   const handleCheckout = async () => {
     try {
-      await axios.put(`/api/attendance/checkout/${id}`);
+      await axios.put(`${API_BASE}/api/attendance/checkout/${id}`)
+;
       setAlert("Member checked out successfully", "success");
       navigate("/app/attendance");
     } catch (err) {
@@ -417,7 +428,8 @@ if (
 
   const handleDeleteConfirm = async () => {
     try {
-      await axios.delete(`/api/attendance/${id}`);
+      await axios.delete(`${API_BASE}/api/attendance/${id}`)
+;
       setAlert("Attendance record deleted successfully", "success");
       navigate("/app/attendance");
     } catch (err) {

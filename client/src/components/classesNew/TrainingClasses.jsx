@@ -40,6 +40,7 @@ import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import DeleteConfirmDialog from "../common/DeleteConfirmDialog";
+import API_BASE from "../../config/api";
 
 const TrainingClasses = () => {
   const alertContext = useContext(AlertContext);
@@ -97,7 +98,8 @@ const [toDate, setToDate] = useState("");
   const loadClasses = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/training-classes");
+      const res = await axios.get(`${API_BASE}/api/training-classes`);
+
       setClasses(res.data);
 
       const uniqueCategories = [
@@ -195,13 +197,15 @@ const [toDate, setToDate] = useState("");
   return;
 }
 
-        await axios.put(
-          `/api/training-classes/${editingClass._id}`,
-          formData
-        );
+       await axios.put(
+  `${API_BASE}/api/training-classes/${editingClass._id}`,
+  formData
+);
+
         setAlert("Training class updated", "success");
       } else {
-        await axios.post("/api/training-classes", formData);
+       await axios.post(`${API_BASE}/api/training-classes`, formData);
+
         setAlert("Training class created", "success");
       }
       setOpenForm(false);
@@ -219,7 +223,8 @@ const [toDate, setToDate] = useState("");
 
   const deleteClass = async () => {
     try {
-      await axios.delete(`/api/training-classes/${classToDelete._id}`);
+      await axios.delete(`${API_BASE}/api/training-classes/${classToDelete._id}`);
+
       setAlert("Training class deleted", "success");
       setDeleteDialogOpen(false);
       loadClasses();

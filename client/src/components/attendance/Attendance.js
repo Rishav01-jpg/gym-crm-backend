@@ -33,6 +33,7 @@ import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import DeleteConfirmDialog from "../common/DeleteConfirmDialog";
+import API_BASE from "../../config/api";
 
 const Attendance = () => {
   const navigate = useNavigate();
@@ -86,7 +87,8 @@ const Attendance = () => {
         params.append("date", dateFilter);
       }
 
-      const response = await axios.get(`/api/attendance?${params.toString()}`);
+      const response = await axios.get(`${API_BASE}/api/attendance?${params.toString()}`)
+;
 
       // Check the structure of the response
       let records = [];
@@ -159,7 +161,8 @@ const Attendance = () => {
     }
 
     try {
-      await axios.put(`/api/attendance/checkout/${id}`);
+      await axios.put(`${API_BASE}/api/attendance/checkout/${id}`)
+;
       setAlert("Member checked out successfully", "success");
       loadAttendanceRecords();
     } catch (err) {
@@ -185,7 +188,8 @@ const Attendance = () => {
     if (!recordToDelete) return;
 
     try {
-      await axios.delete(`/api/attendance/${recordToDelete._id}`);
+      await axios.delete(`${API_BASE}/api/attendance/${recordToDelete._id}`)
+;
       setAlert("Attendance record deleted successfully", "success");
       loadAttendanceRecords();
     } catch (err) {

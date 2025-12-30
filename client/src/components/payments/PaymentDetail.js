@@ -35,6 +35,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import { formatCurrency, formatDate } from "../../utils/format";
+import API_BASE from "../../config/api";
 
 const PaymentDetail = () => {
   const { id } = useParams();
@@ -134,9 +135,9 @@ const PaymentDetail = () => {
 
       // Load initial limited set of members, all memberships, and staff
       const [membersRes, membershipsRes, staffRes] = await Promise.all([
-        axios.get("/api/members?limit=50&sort=firstName"),
-        axios.get("/api/memberships"),
-        axios.get("/api/staff"),
+       axios.get(`${API_BASE}/api/members?limit=50&sort=firstName`),
+axios.get(`${API_BASE}/api/memberships`),
+axios.get(`${API_BASE}/api/staff`),
       ]);
 
       setMembers(membersRes.data);
@@ -146,7 +147,8 @@ const PaymentDetail = () => {
       // If editing or viewing an existing payment, fetch its data
       if (!isNew && id) {
         try {
-          const paymentRes = await axios.get(`/api/payments/${id}`);
+          const paymentRes = await axios.get(`${API_BASE}/api/payments/${id}`)
+;
           const paymentData = {
             ...paymentRes.data,
             member: paymentRes.data.member ? paymentRes.data.member._id : "",
@@ -228,7 +230,8 @@ const PaymentDetail = () => {
     // If a membership is selected, update the amount based on membership price
     if (membershipId) {
       try {
-        const res = await axios.get(`/api/memberships/${membershipId}`);
+        const res = await axios.get(`${API_BASE}/api/memberships/${membershipId}`)
+;
         setPayment((prev) => ({
           ...prev,
           amount: res.data.price,
@@ -285,10 +288,12 @@ const PaymentDetail = () => {
       };
 
       if (isNew) {
-        res = await axios.post("/api/payments", paymentData);
+        res = await axios.post(`${API_BASE}/api/payments`, paymentData)
+;
         setAlert("Payment created successfully", "success");
       } else {
-        res = await axios.put(`/api/payments/${id}`, paymentData);
+        res = await axios.put(`${API_BASE}/api/payments/${id}`, paymentData)
+;
         setAlert("Payment updated successfully", "success");
       }
 
@@ -318,7 +323,8 @@ const PaymentDetail = () => {
 
   const deletePayment = async () => {
     try {
-      await axios.delete(`/api/payments/${id}`);
+      await axios.delete(`${API_BASE}/api/payments/${id}`)
+;
       setAlert("Payment deleted successfully", "success");
      navigate("/app/payments");
 

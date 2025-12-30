@@ -37,6 +37,7 @@ import {
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import { formatCurrency } from "../../utils/format";
+import API_BASE from "../../config/api";
 
 const MembershipDetail = () => {
   const { id } = useParams();
@@ -80,7 +81,8 @@ const MembershipDetail = () => {
   // Get membership details
   const getMembership = async () => {
     try {
-      const res = await axios.get(`/api/memberships/${id}`);
+     const res = await axios.get(`${API_BASE}/api/memberships/${id}`);
+
       setMembership(res.data);
       setLoading(false);
     } catch (err) {
@@ -184,10 +186,18 @@ const MembershipDetail = () => {
       let res;
 
       if (isNew) {
-        res = await axios.post("/api/memberships", membership);
+        res = await axios.post(
+  `${API_BASE}/api/memberships`,
+  membership
+);
+
         setAlert("Membership created successfully", "success");
       } else {
-        res = await axios.put(`/api/memberships/${id}`, membership);
+        res = await axios.put(
+  `${API_BASE}/api/memberships/${id}`,
+  membership
+);
+
         setAlert("Membership updated successfully", "success");
       }
 
@@ -204,7 +214,8 @@ const MembershipDetail = () => {
   // Handle delete membership
   const handleDeleteMembership = async () => {
     try {
-      await axios.delete(`/api/memberships/${id}`);
+      await axios.delete(`${API_BASE}/api/memberships/${id}`);
+
       setAlert("Membership deleted successfully", "success");
       navigate("/memberships");
     } catch (err) {

@@ -52,6 +52,8 @@ import LoadingSpinner from "../layout/LoadingSpinner";
 // Import tab components
 import CertificationsTab from "./tabs/CertificationsTab";
 import ScheduleTab from "./tabs/ScheduleTab";
+import API_BASE from "../../config/api";
+
 
 const StaffDetail = () => {
   const { id } = useParams();
@@ -133,7 +135,8 @@ const StaffDetail = () => {
         return;
       }
 
-      const res = await axios.get(`/api/staff/${id}`);
+      const res = await axios.get(`${API_BASE}/api/staff/${id}`);
+
       const staffMember = res.data;
 
       setStaffData({
@@ -265,10 +268,12 @@ const StaffDetail = () => {
       };
 
       if (isNew) {
-        await axios.post("/api/staff", staffPayload);
+        await axios.post(`${API_BASE}/api/staff`, staffPayload);
+
         setAlert("Staff member created successfully", "success");
       } else {
-        await axios.put(`/api/staff/${id}`, staffPayload);
+       await axios.put(`${API_BASE}/api/staff/${id}`, staffPayload);
+
         setAlert("Staff member updated successfully", "success");
       }
 
@@ -298,7 +303,8 @@ const StaffDetail = () => {
   const handleDelete = async () => {
     setDeleteLoading(true);
     try {
-      await axios.delete(`/api/staff/${id}`);
+      await axios.delete(`${API_BASE}/api/staff/${id}`);
+
       setAlert("Staff member deleted successfully", "success");
       navigate("/app/staff");
     } catch (err) {
