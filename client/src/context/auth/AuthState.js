@@ -13,6 +13,7 @@ import {
   LOGOUT,
   CLEAR_ERRORS,
 } from "../types";
+const API_BASE = "https://gym-crm-backend-yw6b.onrender.com";
 
 const AuthState = (props) => {
   const initialState = {
@@ -39,7 +40,7 @@ const AuthState = (props) => {
     setAuthToken(localStorage.token);
 
     try {
-      const res = await axios.get("/api/auth");
+     const res = await axios.get(`${API_BASE}/api/auth`);
 
       dispatch({
         type: USER_LOADED,
@@ -62,7 +63,12 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.post("/api/users", formData, config);
+      const res = await axios.post(
+  `${API_BASE}/api/users`,
+  formData,
+  config
+);
+
 
       dispatch({
         type: REGISTER_SUCCESS,
@@ -87,7 +93,12 @@ const AuthState = (props) => {
   };
 
   try {
-    const res = await axios.post("/api/auth", formData, config);
+    const res = await axios.post(
+  `${API_BASE}/api/auth`,
+  formData,
+  config
+);
+
 
     // ✅ CRITICAL LINE (MISSING BEFORE)
     setAuthToken(res.data.token);

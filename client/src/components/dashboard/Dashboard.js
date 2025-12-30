@@ -29,6 +29,7 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import MoneyOffIcon from "@mui/icons-material/MoneyOff";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
+import API_BASE from "../../config/api";
 
 // Initial empty data structure
 const initialData = {
@@ -144,19 +145,21 @@ const Dashboard = () => {
         const todayClasses = new Date().toISOString().split("T")[0];
 
         // Make API requests one at a time to avoid overwhelming the server
-        const statsRes = await axios.get("/api/dashboard/stats");
+       const statsRes = await axios.get(`${API_BASE}/api/dashboard/stats`);
+
 
         // Only continue if component is still mounted
         if (!isMounted) return;
 
-        const membersRes = await axios.get("/api/members/recent");
+       const membersRes = await axios.get(`${API_BASE}/api/members/recent`);
+
 
         // Only continue if component is still mounted
         if (!isMounted) return;
 
-        const classesRes = await axios.get(
-          `/api/classes/sessions/date/${todayClasses}`
-        );
+       const classesRes = await axios.get(
+  `${API_BASE}/api/classes/sessions/date/${todayClasses}`
+);
 
         // Final check if component is still mounted
         if (!isMounted) return;
