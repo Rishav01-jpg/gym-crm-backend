@@ -35,6 +35,7 @@ import {
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 import axios from 'axios';
+import API_BASE from "../../config/api";
 
 const UserDetail = () => {
   const { id } = useParams();
@@ -70,7 +71,8 @@ const UserDetail = () => {
   const fetchUserData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/api/users/${id}`);
+      const res = await axios.get(`${API_BASE}/api/users/${id}`);
+
       setUserData(res.data);
       setLoading(false);
     } catch (err) {
@@ -102,7 +104,8 @@ const UserDetail = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/users/${id}`);
+      await axios.delete(`${API_BASE}/api/users/${id}`);
+
       setAlert('User deleted successfully', 'success');
       navigate('/app/users');
     } catch (err) {
@@ -114,9 +117,10 @@ const UserDetail = () => {
   const handleToggleStatus = async () => {
     try {
       const updatedStatus = !userData.isActive;
-      await axios.put(`/api/users/${id}`, {
-        isActive: updatedStatus
-      });
+     await axios.put(`${API_BASE}/api/users/${id}`, {
+  isActive: updatedStatus
+});
+
       setAlert(`User ${updatedStatus ? 'activated' : 'deactivated'} successfully`, 'success');
       fetchUserData();
       closeStatusDialog();
