@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import API_BASE from "../../config/api";
+
 import {
   Box,
   Button,
@@ -49,7 +51,8 @@ const Gyms = () => {
   const getGyms = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/gyms");
+     const res = await axios.get(`${API_BASE}/api/gyms`);
+
       setGyms(res.data);
       setLoading(false);
     } catch (err) {
@@ -66,7 +69,8 @@ const Gyms = () => {
         },
       };
 
-      const res = await axios.post("/api/gyms", gym, config);
+      const res = await axios.post(`${API_BASE}/api/gyms`, gym, config);
+
       setGyms([...gyms, res.data]);
       setAlert("Gym added", "success");
       setShowForm(false);
@@ -83,7 +87,12 @@ const Gyms = () => {
         },
       };
 
-      const res = await axios.put(`/api/gyms/${gym._id}`, gym, config);
+      const res = await axios.put(
+  `${API_BASE}/api/gyms/${gym._id}`,
+  gym,
+  config
+);
+
 
       setGyms(gyms.map((g) => (g._id === gym._id ? res.data : g)));
       setAlert("Gym updated", "success");
@@ -98,7 +107,8 @@ const Gyms = () => {
     if (!gymToDelete) return;
 
     try {
-      await axios.delete(`/api/gyms/${gymToDelete._id}`);
+     await axios.delete(`${API_BASE}/api/gyms/${gymToDelete._id}`);
+
       setGyms(gyms.filter((gym) => gym._id !== gymToDelete._id));
       setAlert("Gym removed", "success");
       setDeleteDialogOpen(false);

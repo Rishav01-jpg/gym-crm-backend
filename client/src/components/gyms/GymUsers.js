@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import axios from "axios";
+import API_BASE from "../../config/api";
+
 import {
   Box,
   Button,
@@ -47,7 +49,8 @@ const GymUsers = () => {
 
   const getGymDetails = async () => {
     try {
-      const res = await axios.get(`/api/gyms/${id}`);
+      const res = await axios.get(`${API_BASE}/api/gyms/${id}`);
+
       setGym(res.data);
     } catch (err) {
       setAlert("Error fetching gym details", "danger");
@@ -56,7 +59,8 @@ const GymUsers = () => {
 
   const getGymUsers = async () => {
     try {
-      const res = await axios.get(`/api/gyms/${id}/users`);
+      const res = await axios.get(`${API_BASE}/api/gyms/${id}/users`);
+
       setUsers(res.data);
       setLoading(false);
     } catch (err) {
