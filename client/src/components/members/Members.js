@@ -60,6 +60,7 @@ const Members = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [memberToDelete, setMemberToDelete] = useState(null);
+const SEARCH_DELAY = 500; // half second
 
   // Fetch members on component mount and handle URL query parameters
   useEffect(() => {
@@ -89,6 +90,18 @@ const Members = () => {
       setLoading(false);
     }
   };
+useEffect(() => {
+  if (searchTerm === "") {
+    getMembers();
+    return;
+  }
+
+  const delay = setTimeout(() => {
+    handleSearch();
+  }, SEARCH_DELAY);
+
+  return () => clearTimeout(delay);
+}, [searchTerm]);
 
   // Handle search
   const handleSearch = async () => {
@@ -100,7 +113,9 @@ const Members = () => {
     try {
       setLoading(true);
      const res = await axios.get(
-  `${API_BASE}/api/members/search/${searchTerm}`
+ `${API_BASE}/api/members/search/${searchTerm}`
+
+
 );
 
       setMembers(res.data);
@@ -268,7 +283,8 @@ const Members = () => {
                 fullWidth
                 label="Search Members"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value.trimStart())}
+
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                 InputProps={{
                   endAdornment: (
