@@ -40,6 +40,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
 import axios from "axios";
+import API_BASE from "../../config/api";
 
 const Expenses = () => {
   const authContext = useContext(AuthContext);
@@ -92,7 +93,8 @@ const Expenses = () => {
       const queryString =
         queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
 
-      const res = await axios.get(`/api/expenses${queryString}`);
+     const res = await axios.get(`${API_BASE}/api/expenses${queryString}`);
+
       setExpenses(res.data);
       setLoading(false);
     } catch (err) {
@@ -141,7 +143,8 @@ const Expenses = () => {
     if (!currentExpense) return;
 
     try {
-      await axios.delete(`/api/expenses/${currentExpense._id}`);
+      await axios.delete(`${API_BASE}/api/expenses/${currentExpense._id}`);
+
       setAlert("Expense deleted successfully", "success");
       fetchExpenses();
       closeDeleteDialog();

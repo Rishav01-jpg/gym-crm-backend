@@ -27,6 +27,7 @@ import { Pie, Bar } from "react-chartjs-2";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
 import axios from "axios";
+import API_BASE from "../../config/api";
 
 // Register ChartJS components
 ChartJS.register(
@@ -61,8 +62,9 @@ const ExpenseSummary = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `/api/expenses/summary/monthly?year=${year}&month=${month}`
-      );
+  `${API_BASE}/api/expenses/summary/monthly?year=${year}&month=${month}`
+);
+
       setMonthlySummary(res.data);
       setLoading(false);
     } catch (err) {
@@ -80,9 +82,10 @@ const ExpenseSummary = () => {
       const startDate = new Date(year, month - 1, 1);
       const endDate = new Date(year, month, 0);
 
-      const res = await axios.get(
-        `/api/expenses/summary/category?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
-      );
+     const res = await axios.get(
+  `${API_BASE}/api/expenses/summary/category?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+);
+
       setCategorySummary(res.data);
     } catch (err) {
       setAlert(

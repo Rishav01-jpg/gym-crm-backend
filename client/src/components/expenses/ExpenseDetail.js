@@ -24,6 +24,8 @@ import { Save as SaveIcon, Receipt as ReceiptIcon } from "@mui/icons-material";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
 import axios from "axios";
+import API_BASE from "../../config/api";
+
 
 const ExpenseDetail = () => {
   const { id } = useParams();
@@ -84,7 +86,8 @@ const ExpenseDetail = () => {
   const fetchStaffList = async () => {
     try {
       setLoadingStaff(true);
-      const res = await axios.get("/api/staff");
+      const res = await axios.get(`${API_BASE}/api/staff`);
+
       setStaffList(res.data);
       setLoadingStaff(false);
     } catch (err) {
@@ -96,7 +99,8 @@ const ExpenseDetail = () => {
   const fetchExpenseData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/api/expenses/${id}`);
+      const res = await axios.get(`${API_BASE}/api/expenses/${id}`);
+
       const expenseData = res.data;
 
       setFormData({
@@ -215,10 +219,12 @@ const ExpenseDetail = () => {
       };
 
       if (isEdit) {
-        await axios.put(`/api/expenses/${id}`, submitData);
+       await axios.put(`${API_BASE}/api/expenses/${id}`, submitData);
+
         setAlert("Expense updated successfully", "success");
       } else {
-        await axios.post("/api/expenses", submitData);
+        await axios.post(`${API_BASE}/api/expenses`, submitData);
+
         setAlert("Expense created successfully", "success");
       }
 
