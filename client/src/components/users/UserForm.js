@@ -20,6 +20,7 @@ import { Save as SaveIcon } from '@mui/icons-material';
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 import axios from 'axios';
+import API_BASE from "../../config/api";
 
 const UserForm = () => {
   const { id } = useParams();
@@ -79,7 +80,8 @@ const UserForm = () => {
   const fetchStaffList = async () => {
     try {
       setLoadingStaff(true);
-      const res = await axios.get('/api/staff');
+      const res = await axios.get(`${API_BASE}/api/staff`);
+
       // Filter out staff that already have user accounts
       setStaffList(res.data);
       setLoadingStaff(false);
@@ -93,7 +95,8 @@ const UserForm = () => {
   const fetchGymsList = async () => {
     try {
       setLoadingGyms(true);
-      const res = await axios.get('/api/gyms');
+     const res = await axios.get(`${API_BASE}/api/gyms`);
+
       setGymsList(res.data);
       setLoadingGyms(false);
     } catch (err) {
@@ -105,7 +108,8 @@ const UserForm = () => {
   const fetchUserData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/api/users/${id}`);
+      const res = await axios.get(`${API_BASE}/api/users/${id}`);
+
       const userData = res.data;
       
       setFormData({
@@ -201,10 +205,12 @@ const UserForm = () => {
       }
       
       if (isEdit) {
-        await axios.put(`/api/users/${id}`, submitData);
+       await axios.put(`${API_BASE}/api/users/${id}`, submitData);
+
         setAlert('User updated successfully', 'success');
       } else {
-        await axios.post('/api/users', submitData);
+       await axios.post(`${API_BASE}/api/users`, submitData);
+
         setAlert('User created successfully', 'success');
       }
       
