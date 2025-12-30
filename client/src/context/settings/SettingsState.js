@@ -3,6 +3,8 @@ import axios from "axios";
 import SettingsContext from "./settingsContext";
 import settingsReducer from "./settingsReducer";
 import AlertContext from "../alert/alertContext";
+import API_BASE from "../../config/api";
+
 import {
   GET_SETTINGS,
   GET_SETTING,
@@ -30,7 +32,8 @@ const SettingsState = (props) => {
   const getSettings = async () => {
     try {
       setLoading();
-      const res = await axios.get("/api/settings");
+     const res = await axios.get(`${API_BASE}/api/settings`);
+
 
       dispatch({
         type: GET_SETTINGS,
@@ -57,7 +60,8 @@ const SettingsState = (props) => {
   const getSetting = async (key) => {
     try {
       setLoading();
-      const res = await axios.get(`/api/settings/${key}`);
+      const res = await axios.get(`${API_BASE}/api/settings/${key}`);
+
 
       dispatch({
         type: GET_SETTING,
@@ -84,7 +88,11 @@ const SettingsState = (props) => {
           ? settingData
           : { value: settingData };
 
-      const res = await axios.put(`/api/settings/${key}`, dataToSend);
+     const res = await axios.put(
+  `${API_BASE}/api/settings/${key}`,
+  dataToSend
+);
+
 
       // Make sure we have the category information for the reducer
       if (!res.data.category) {
@@ -133,7 +141,8 @@ const SettingsState = (props) => {
   const initializeSettings = async () => {
     try {
       setLoading();
-      const res = await axios.post("/api/settings/initialize");
+      const res = await axios.post(`${API_BASE}/api/settings/initialize`);
+
 
       // After initializing, fetch the settings again
       await getSettings();
